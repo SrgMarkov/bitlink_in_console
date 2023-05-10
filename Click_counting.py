@@ -31,9 +31,12 @@ def get_count_clicks(access_token, url):
 def is_bitlink(access_token, url):
     parsed = urlparse(url)
     url_bitly = f'https://api-ssl.bitly.com/v4/bitlinks/{parsed.netloc}{parsed.path}'
-    response = requests.get(url_bitly, headers=access_token)
-    response.raise_for_status()
-    return response.ok
+    try:
+        response = requests.get(url_bitly, headers=access_token)
+        response.raise_for_status()
+        return response.ok
+    except requests.exceptions.RequestException as e:
+        return f"Ошибка при выполнении запроса: {e}"
 
 
 def main():
