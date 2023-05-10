@@ -8,7 +8,7 @@
 - Python3 должен быть уже установлен
 - в директории с файлами программы необходимо создать `.env` файл, в котором прописать **API** [bit.ly](https://app.bitly.com/)
 ```
-TOKEN=thisistoKeN4example
+BITLY_TOKEN=thisistoKeN4example
 ```
 - Установить python-dotenv
 ```
