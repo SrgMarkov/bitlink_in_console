@@ -1,7 +1,8 @@
+import os
 import requests
 from urllib.parse import urlparse
 from dotenv import load_dotenv
-import os
+
 
 
 def get_short_link(access_token, url):
