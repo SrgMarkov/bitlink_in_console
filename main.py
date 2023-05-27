@@ -1,8 +1,8 @@
 import os
+import argparse
 import requests
 from urllib.parse import urlparse
 from dotenv import load_dotenv
-
 
 
 def get_short_link(access_token, url):
@@ -34,17 +34,17 @@ def is_bitlink(access_token, url):
     return response.ok
 
 
-def main():
+if __name__ == '__main__':
     load_dotenv()
     bitly_token = os.getenv("BITLY_TOKEN")
-    link = input('Введите ссылку: ')
+    parser = argparse.ArgumentParser(description='При вводе ссылки вида https://example.com создает короткую ссылку '
+                                                 'вида bit.ly/random. При вводе короткой ссылки - возвращает '
+                                                 'количество переходов по ней')
+    parser.add_argument('link', help='введите ссылку')
+    args = parser.parse_args()
     try:
-        print(get_count_clicks(bitly_token, link)) if is_bitlink(bitly_token, link)\
-            else print(get_short_link(bitly_token, link))
+        print(get_count_clicks(bitly_token, args.link)) if is_bitlink(bitly_token, args.link) \
+            else print(get_short_link(bitly_token, args.link))
     except requests.exceptions.RequestException as e:
         print(f"Ошибка при выполнении запроса: {e}")
-
-
-if __name__ == '__main__':
-    main()
 

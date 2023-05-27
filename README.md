@@ -10,9 +10,20 @@
 ```
 BITLY_TOKEN=thisistoKeN4example
 ```
-- Установить python-dotenv
+- Установить зависимости командой
 ```
-pip install python-dotenv
+pip install -r requirements.txt
+```
+### Как запустить
+
+Передать в качестве аргумента в командной строке ссылку для сокращения или короткую ссылку для подсчета переходов
+
+```
+python3 main.py http://example.com
+```
+или
+```
+python3 main.py bit.ly/example
 ```
 
 ### Основные функции
