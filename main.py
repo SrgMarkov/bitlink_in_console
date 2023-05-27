@@ -11,7 +11,7 @@ def get_short_link(access_token, url):
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.post(url_bitly, headers=api_auth, json=query)
     response.raise_for_status()
-    bitlink = 'Битлинк: ' + response.json()['link'][8:]
+    bitlink = f'Битлинк: {response.json()["link"][8:]}'
     return bitlink
 
 
@@ -22,7 +22,7 @@ def get_count_clicks(access_token, url):
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.get(url_bitly, headers=api_auth, params=params)
     response.raise_for_status()
-    bitlink = 'По вашей ссылке прошли ' + str(response.json()['total_clicks']) + ' раз(а)'
+    bitlink = f'По вашей ссылке прошли {str(response.json()["total_clicks"])} раз(а)'
     return bitlink
 
 
