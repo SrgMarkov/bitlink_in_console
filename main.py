@@ -16,8 +16,8 @@ def get_short_link(access_token, url):
 
 
 def get_count_clicks(access_token, url):
-    parsed = urlparse(url)
-    bitly_url = f'https://api-ssl.bitly.com/v4/bitlinks/{parsed.netloc}{parsed.path}/clicks/summary'
+    url_components = urlparse(url)
+    bitly_url = f'https://api-ssl.bitly.com/v4/bitlinks/{url_components.netloc}{url_components.path}/clicks/summary'
     params = {'units': '-1'}
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.get(bitly_url, headers=api_auth, params=params)
@@ -37,11 +37,11 @@ def is_bitlink(access_token, url):
 if __name__ == '__main__':
     load_dotenv()
     bitly_token = os.getenv("BITLY_TOKEN")
-    parser = argparse.ArgumentParser(description='При вводе ссылки вида https://example.com создает короткую ссылку '
-                                                 'вида bit.ly/random. При вводе короткой ссылки - возвращает '
-                                                 'количество переходов по ней')
-    parser.add_argument('link', help='введите ссылку')
-    args = parser.parse_args()
+    command_arguments = argparse.ArgumentParser(description='При вводе ссылки вида https://example.com создает '
+                                                            'короткую ссылку вида bit.ly/random. При вводе короткой '
+                                                            'ссылки - возвращает количество переходов по ней')
+    command_arguments.add_argument('link', help='введите ссылку')
+    args = command_arguments.parse_args()
     try:
         print(get_count_clicks(bitly_token, args.link)) if is_bitlink(bitly_token, args.link) \
             else print(get_short_link(bitly_token, args.link))
