@@ -27,8 +27,8 @@ def get_count_clicks(access_token, url):
 
 
 def is_bitlink(access_token, url):
-    parsed = urlparse(url)
-    bitly_url = f'https://api-ssl.bitly.com/v4/bitlinks/{parsed.netloc}{parsed.path}'
+    url_components = urlparse(url)
+    bitly_url = f'https://api-ssl.bitly.com/v4/bitlinks/{url_components.netloc}{url_components.path}'
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.get(bitly_url, headers=api_auth)
     return response.ok
