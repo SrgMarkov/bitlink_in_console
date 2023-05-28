@@ -11,7 +11,7 @@ def get_short_link(access_token, url):
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.post(bitly_url, headers=api_auth, json=query)
     response.raise_for_status()
-    bitlink = response.json()["link"][8:]
+    bitlink = response.json()['id']
     return f'Битлинк: {bitlink}'
 
 
