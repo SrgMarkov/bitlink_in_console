@@ -11,8 +11,7 @@ def get_short_link(access_token, url):
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.post(bitly_url, headers=api_auth, json=query)
     response.raise_for_status()
-    bitlink = response.json()['id']
-    return f'Битлинк: {bitlink}'
+    return response.json()['id']
 
 
 def get_count_clicks(access_token, url):
@@ -22,8 +21,7 @@ def get_count_clicks(access_token, url):
     api_auth = {'Authorization': f'Bearer {access_token}'}
     response = requests.get(bitly_url, headers=api_auth, params=params)
     response.raise_for_status()
-    bitlink = str(response.json()["total_clicks"])
-    return f'По вашей ссылке прошли {bitlink} раз(а)'
+    return response.json()["total_clicks"]
 
 
 def is_bitlink(access_token, url):
@@ -43,8 +41,8 @@ if __name__ == '__main__':
     command_arguments.add_argument('link', help='введите ссылку')
     args = command_arguments.parse_args()
     try:
-        print(get_count_clicks(bitly_token, args.link)) if is_bitlink(bitly_token, args.link) \
-            else print(get_short_link(bitly_token, args.link))
+        print(f'По вашей ссылке прошли {get_count_clicks(bitly_token, args.link)} раз(а)') if \
+            is_bitlink(bitly_token, args.link) else print(f'Битлинк: {get_short_link(bitly_token, args.link)}')
     except requests.exceptions.RequestException as e:
         print(f"Ошибка при выполнении запроса: {e}")
 
